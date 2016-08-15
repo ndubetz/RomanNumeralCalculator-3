@@ -64,6 +64,32 @@ START_TEST (roman_to_arabic_single_digits)
 }
 END_TEST
 
+START_TEST (roman_to_arabic_multiple_digits)
+{
+	ck_assert_int_eq(1111, Converter_roman_to_arabic("MCXI")); 
+	ck_assert_int_eq(1777, Converter_roman_to_arabic("MDCCLXXVII")); 
+	ck_assert_int_eq(2333, Converter_roman_to_arabic("MMCCCXXXIII")); 
+	ck_assert_int_eq(2555, Converter_roman_to_arabic("MMDLV")); 
+	ck_assert_int_eq(3111, Converter_roman_to_arabic("MMMCXI")); 
+	ck_assert_int_eq(3777, Converter_roman_to_arabic("MMMDCCLXXVII")); 
+	ck_assert_int_eq(3888, Converter_roman_to_arabic("MMMDCCCLXXXVIII")); 
+}
+END_TEST
+
+START_TEST (roman_to_arabic_subtraction_cases)
+{
+	ck_assert_int_eq(444,  Converter_roman_to_arabic("CDXLIV")); 
+	ck_assert_int_eq(999,  Converter_roman_to_arabic("CMXCIX")); 
+	ck_assert_int_eq(1494, Converter_roman_to_arabic("MCDXCIV")); 
+	ck_assert_int_eq(1949, Converter_roman_to_arabic("MCMXLIX")); 
+	ck_assert_int_eq(2499, Converter_roman_to_arabic("MMCDXCIX")); 
+	ck_assert_int_eq(2944, Converter_roman_to_arabic("MMCMXLIV")); 
+	ck_assert_int_eq(3449, Converter_roman_to_arabic("MMMCDXLIX")); 
+	ck_assert_int_eq(3994, Converter_roman_to_arabic("MMMCMXCIV")); 
+	ck_assert_int_eq(3999, Converter_roman_to_arabic("MMMCMXCIX")); 
+}
+END_TEST
+
 TCase * ConverterTests()
 {
 	TCase * tc;
@@ -73,5 +99,7 @@ TCase * ConverterTests()
 	tcase_add_test(tc, arabic_to_roman_subtraction_cases);
 	tcase_add_test(tc, arabic_to_roman_error_cases);
 	tcase_add_test(tc, roman_to_arabic_single_digits);
+	tcase_add_test(tc, roman_to_arabic_multiple_digits);
+	tcase_add_test(tc, roman_to_arabic_subtraction_cases);
 	return tc;
 }

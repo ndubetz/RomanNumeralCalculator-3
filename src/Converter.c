@@ -73,18 +73,23 @@ void Converter_arabic_to_roman(char * buffer, int number)
 
 int Converter_roman_to_arabic(char * numeral)
 {
+	int number = 0;
+	int previous_number = 0;
 	int i;
 	for(i = strlen(numeral); i--;)
 	{
-		int j;
 		const char numeral_as_string[] = {numeral[i], '\0'};
+		int j;
 		for(j = 0; j < 7; j++)
 		{	
 			if(strcmp(numeral_as_string, ROMAN_TO_ARABIC[j].roman) == 0)
 			{
-				return ROMAN_TO_ARABIC[j].arabic;
+				number += (ROMAN_TO_ARABIC[j].arabic >= previous_number)
+					?  ROMAN_TO_ARABIC[j].arabic
+					: -ROMAN_TO_ARABIC[j].arabic;
+				previous_number = ROMAN_TO_ARABIC[j].arabic;
 			}		
 		}
 	}
-	return 9999;
+	return number;
 }
