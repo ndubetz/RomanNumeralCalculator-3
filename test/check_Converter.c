@@ -33,11 +33,21 @@ START_TEST (arabic_to_roman_multiple_digits)
 }
 END_TEST
 
+START_TEST (arabic_to_roman_subtraction_cases)
+{
+	test_arabic_to_roman(3999, "MMMCMXCIX");
+	test_arabic_to_roman(2444, "MMCDXLIV");
+	test_arabic_to_roman(1949, "MCMXLIX");
+	test_arabic_to_roman(494, "CDXCIV");
+}
+END_TEST
+
 TCase * ConverterTests()
 {
 	TCase * tc;
 	tc = tcase_create("ConverterTests");
 	tcase_add_test(tc, arabic_to_roman_single_digits);
 	tcase_add_test(tc, arabic_to_roman_multiple_digits);
+	tcase_add_test(tc, arabic_to_roman_subtraction_cases);
 	return tc;
 }
