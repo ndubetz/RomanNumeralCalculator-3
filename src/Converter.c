@@ -22,12 +22,17 @@ struct arabic_to_roman ARABIC_TO_ROMAN[] =
 
 void Converter_arabic_to_roman(char * numeral, int number)
 {
-	int i;
-	for(i = 0; i < 7; i++)
+	int i = 0;
+	while(number)
 	{
-		if (number == ARABIC_TO_ROMAN[i].arabic) 
+		if (number >= ARABIC_TO_ROMAN[i].arabic) 
 		{
-			strcat(numeral, ARABIC_TO_ROMAN[i].roman);			
+			strcat(numeral, ARABIC_TO_ROMAN[i].roman);
+			number -= ARABIC_TO_ROMAN[i].arabic;		
+		}
+		else
+		{
+			i++;
 		}
 	}
 }

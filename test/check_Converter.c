@@ -13,7 +13,7 @@ void test_arabic_to_roman(int number, char * expectedResult)
 	ck_assert_str_eq(buffer, expectedResult);
 }
 
-START_TEST (convert_to_single_roman_digits)
+START_TEST (arabic_to_roman_single_digits)
 {
 	test_arabic_to_roman(1,    "I");
 	test_arabic_to_roman(5,    "V");
@@ -25,10 +25,19 @@ START_TEST (convert_to_single_roman_digits)
 }
 END_TEST
 
+START_TEST (arabic_to_roman_multiple_digits)
+{
+	test_arabic_to_roman(1666, "MDCLXVI");
+	test_arabic_to_roman(2222, "MMCCXXII");
+	test_arabic_to_roman(3888, "MMMDCCCLXXXVIII");
+}
+END_TEST
+
 TCase * ConverterTests()
 {
 	TCase * tc;
 	tc = tcase_create("ConverterTests");
-	tcase_add_test(tc, convert_to_single_roman_digits);
+	tcase_add_test(tc, arabic_to_roman_single_digits);
+	tcase_add_test(tc, arabic_to_roman_multiple_digits);
 	return tc;
 }
