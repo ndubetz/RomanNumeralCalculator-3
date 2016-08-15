@@ -7,7 +7,7 @@
 
 void test_arabic_to_roman(int number, char * expectedResult)
 {
-	char buffer[30];
+	char buffer[50];
 	memset(buffer, 0, 30);
 	Converter_arabic_to_roman(buffer, number);
 	ck_assert_str_eq(buffer, expectedResult);
@@ -42,6 +42,28 @@ START_TEST (arabic_to_roman_subtraction_cases)
 }
 END_TEST
 
+START_TEST (arabic_to_roman_error_cases)
+{
+	char * error_message = "Result cannot be displayed as a roman numeral.";
+	test_arabic_to_roman(4001, error_message);
+	test_arabic_to_roman(4000, error_message);
+	test_arabic_to_roman(0,    error_message);
+	test_arabic_to_roman(-1,   error_message);
+}
+END_TEST
+
+START_TEST (roman_to_arabic_single_digits)
+{
+	ck_assert_int_eq(1,    Converter_roman_to_arabic("I")); 
+	ck_assert_int_eq(5,    Converter_roman_to_arabic("V")); 
+	ck_assert_int_eq(10,   Converter_roman_to_arabic("X")); 
+	ck_assert_int_eq(50,   Converter_roman_to_arabic("L")); 
+	ck_assert_int_eq(100,  Converter_roman_to_arabic("C")); 
+	ck_assert_int_eq(500,  Converter_roman_to_arabic("D")); 
+	ck_assert_int_eq(1000, Converter_roman_to_arabic("M")); 
+}
+END_TEST
+
 TCase * ConverterTests()
 {
 	TCase * tc;
@@ -49,5 +71,7 @@ TCase * ConverterTests()
 	tcase_add_test(tc, arabic_to_roman_single_digits);
 	tcase_add_test(tc, arabic_to_roman_multiple_digits);
 	tcase_add_test(tc, arabic_to_roman_subtraction_cases);
+	tcase_add_test(tc, arabic_to_roman_error_cases);
+	tcase_add_test(tc, roman_to_arabic_single_digits);
 	return tc;
 }
