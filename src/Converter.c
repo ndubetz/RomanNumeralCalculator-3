@@ -59,6 +59,22 @@ static void convert_to_roman(char * buffer, int number)
 	}
 }
 
+static int convert_numeral(char numeral, int previous_number)
+{
+	const char numeral_as_string[] = {numeral, '\0'};
+	int j;
+	for(j = 0; j < 7; j++)
+	{	
+		if(strcmp(numeral_as_string, ROMAN_TO_ARABIC[j].roman) == 0)
+		{
+			return (ROMAN_TO_ARABIC[j].arabic >= previous_number)
+				?  ROMAN_TO_ARABIC[j].arabic
+				: -ROMAN_TO_ARABIC[j].arabic;
+		}		
+	}
+	return -9999;
+}
+
 void Converter_arabic_to_roman(char * buffer, int number)
 {
 	if(number >= 4000 || number <= 0)
@@ -78,18 +94,9 @@ int Converter_roman_to_arabic(char * numeral)
 	int i;
 	for(i = strlen(numeral); i--;)
 	{
-		const char numeral_as_string[] = {numeral[i], '\0'};
-		int j;
-		for(j = 0; j < 7; j++)
-		{	
-			if(strcmp(numeral_as_string, ROMAN_TO_ARABIC[j].roman) == 0)
-			{
-				number += (ROMAN_TO_ARABIC[j].arabic >= previous_number)
-					?  ROMAN_TO_ARABIC[j].arabic
-					: -ROMAN_TO_ARABIC[j].arabic;
-				previous_number = ROMAN_TO_ARABIC[j].arabic;
-			}		
-		}
+		int numeral_value = convert_numeral(numeral[i], previous_number);
+		number += numeral_value; 
+		previous_number = numeral_value;
 	}
 	return number;
 }

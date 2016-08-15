@@ -90,6 +90,14 @@ START_TEST (roman_to_arabic_subtraction_cases)
 }
 END_TEST
 
+START_TEST (roman_to_arabic_invalid_numerals_return_negative_number)
+{
+	ck_assert_int_gt(0, Converter_roman_to_arabic("PBJ")); 
+	ck_assert_int_gt(0, Converter_roman_to_arabic("MICH")); 
+	ck_assert_int_gt(0, Converter_roman_to_arabic("0")); 
+}
+END_TEST
+
 TCase * ConverterTests()
 {
 	TCase * tc;
@@ -101,5 +109,6 @@ TCase * ConverterTests()
 	tcase_add_test(tc, roman_to_arabic_single_digits);
 	tcase_add_test(tc, roman_to_arabic_multiple_digits);
 	tcase_add_test(tc, roman_to_arabic_subtraction_cases);
+	tcase_add_test(tc, roman_to_arabic_invalid_numerals_return_negative_number);
 	return tc;
 }
