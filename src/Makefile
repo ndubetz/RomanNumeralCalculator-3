@@ -1,5 +1,5 @@
 
-OBJECTS = Converter.o
+OBJECTS = Converter.o Calculator.o
 
 CFLAGS = -g
 

@@ -8,6 +8,7 @@ Suite * RomanNumeralSuite(void)
 	Suite * s;
 	s = suite_create("AllTests"); 
 	suite_add_tcase(s, ConverterTests());
+	suite_add_tcase(s, CalculatorTests());
 	return s;
 }
 

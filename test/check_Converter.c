@@ -8,7 +8,7 @@
 void test_arabic_to_roman(int number, char * expectedResult)
 {
 	char buffer[50];
-	memset(buffer, 0, 30);
+	memset(buffer, 0, 50);
 	Converter_arabic_to_roman(buffer, number);
 	ck_assert_str_eq(buffer, expectedResult);
 }
