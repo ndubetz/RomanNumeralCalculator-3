@@ -54,6 +54,15 @@ START_TEST (Calculator_subtracts_two_numerals)
 }
 END_TEST
 
+START_TEST (Calculator_subtract_error_cases)
+{
+	char * error_message = "Result cannot be displayed as a roman numeral.";
+	test_subtraction("MMM", "MMM", error_message);
+	test_subtraction("MMM", "MMMI", error_message);
+	test_subtraction("GNU", "MIT", error_message);
+}
+END_TEST
+
 TCase * CalculatorTests()
 {
 	TCase * tc;
@@ -61,6 +70,7 @@ TCase * CalculatorTests()
 	tcase_add_test(tc, Calculator_adds_two_numerals);
 	tcase_add_test(tc, Calculator_add_error_cases);
 	tcase_add_test(tc, Calculator_subtracts_two_numerals);
+	tcase_add_test(tc, Calculator_subtract_error_cases);
 	return tc;
 }
 
