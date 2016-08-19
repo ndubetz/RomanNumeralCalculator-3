@@ -2,6 +2,7 @@
 #include <check.h>
 
 #include "check_Converter.h"
+#include "check_Calculator.h"
 
 Suite * RomanNumeralSuite(void)
 {

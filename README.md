@@ -4,12 +4,16 @@ This kata creates a library that allows the adding and subtraction of roman nume
  
 The environment for this kata is the following:  
 
-- Ubuntu Linux
+- Ubuntu Linux 14.04
 - The C programming language
 - GNU GCC compiler tool chain
 - GNU Make
 - Check unit testing framework ( https://libcheck.github.io/check/ )
 - git
+
+## Building and running tests
+
+- Running `make` at the root directory cleans the project, builds the project, and runs all tests.
 
 ## Roman Numeral rules:
 
