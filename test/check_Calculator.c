@@ -13,6 +13,14 @@ void test_addition(char * numeral1, char * numeral2, char * result)
 	ck_assert_str_eq(buffer, result);
 }
 
+void test_subtraction(char * numeral1, char * numeral2, char * result)
+{
+	char buffer[50];
+	memset(buffer, 0, 50);
+	Calculator_subtract(buffer, numeral1, numeral2);
+	ck_assert_str_eq(buffer, result);
+}
+
 START_TEST (Calculator_adds_two_numerals)
 {
 	test_addition("MCXI", "MMCCXXII", "MMMCCCXXXIII");
@@ -34,12 +42,25 @@ START_TEST (Calculator_add_error_cases)
 }
 END_TEST
 
+START_TEST (Calculator_subtracts_two_numerals)
+{
+	test_subtraction("MMMDCLXVII", "MMDCLXVI", "MI");
+	test_subtraction("MM", "DCLXVI", "MCCCXXXIV");
+	test_subtraction("MM", "MCMXCIX", "I");
+	test_subtraction("MDCCLXXVII", "CMXXXIX", "DCCCXXXVIII");
+	test_subtraction("MMMCDLIV", "MMMCCXLV", "CCIX");
+	test_subtraction("MMM", "MMI", "CMXCIX");
+	test_subtraction("MMDLV", "MCMXCIX", "DLVI");
+}
+END_TEST
+
 TCase * CalculatorTests()
 {
 	TCase * tc;
 	tc = tcase_create("CalculatorTests");
 	tcase_add_test(tc, Calculator_adds_two_numerals);
 	tcase_add_test(tc, Calculator_add_error_cases);
+	tcase_add_test(tc, Calculator_subtracts_two_numerals);
 	return tc;
 }
 
