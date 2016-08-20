@@ -3,13 +3,18 @@
 
 #include "Converter.h"
 
+#define NUMBER_OF_ROMAN_NUMERALS 7
+#define LOWER_BOUND 0
+#define UPPER_BOUND 4000
+#define INVALID_NUMERAL_VALUE -9999
+
 struct conversion_map 
 {
 	const int arabic;
 	const char * roman;
 };
 
-struct conversion_map ARABIC_TO_ROMAN[] =
+const struct conversion_map ARABIC_TO_ROMAN[] =
 {
     { 1000,  "M" },
     {  900, "CM" },
@@ -26,7 +31,7 @@ struct conversion_map ARABIC_TO_ROMAN[] =
     {    1,  "I" }
 };
 
-struct conversion_map ROMAN_TO_ARABIC[] =
+const struct conversion_map ROMAN_TO_ARABIC[] =
 {
     { 1000,  "M" },
     {  500,  "D" },
@@ -63,7 +68,8 @@ static int convert_numeral(char numeral, int previous_number)
 {
 	const char numeral_as_string[] = {numeral, '\0'};
 	int j;
-	for(j = 0; j < 7; j++)
+	
+	for(j = 0; j < NUMBER_OF_ROMAN_NUMERALS; j++)
 	{	
 		if(strcmp(numeral_as_string, ROMAN_TO_ARABIC[j].roman) == 0)
 		{
@@ -72,12 +78,14 @@ static int convert_numeral(char numeral, int previous_number)
 				: -ROMAN_TO_ARABIC[j].arabic;
 		}		
 	}
-	return -9999;
+	return INVALID_NUMERAL_VALUE;
 }
+
+
 
 void Converter_arabic_to_roman(char * buffer, int number)
 {
-	if(number >= 4000 || number <= 0)
+	if(number >= UPPER_BOUND || number <= LOWER_BOUND)
 	{
 		write_error(buffer);
 	} 
