@@ -1,14 +1,16 @@
 #include <stdlib.h>
 #include <check.h>
 
-#include "check_Converter.h"
+#include "check_ArabicToRoman.h"
+#include "check_RomanToArabic.h"
 #include "check_Calculator.h"
 
 Suite * RomanNumeralSuite(void)
 {
 	Suite * s;
 	s = suite_create("AllTests"); 
-	suite_add_tcase(s, ConverterTests());
+	suite_add_tcase(s, ArabicToRomanTests());
+	suite_add_tcase(s, RomanToArabicTests());
 	suite_add_tcase(s, CalculatorTests());
 	return s;
 }

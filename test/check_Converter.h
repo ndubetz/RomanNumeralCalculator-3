@@ -1,3 +1,0 @@
-
-
-TCase * ConverterTests(void);

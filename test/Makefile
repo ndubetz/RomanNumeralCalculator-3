@@ -3,9 +3,9 @@ CFLAGS = `pkg-config --cflags check`
 LIBS = `pkg-config --libs check`
 VPATH = ../src
 
-TEST_OBJECTS = check_Converter.o check_Calculator.o
+TEST_OBJECTS = check_ArabicToRoman.o check_RomanToArabic.o check_Calculator.o
 
-OBJECTS = Converter.o Calculator.o
+OBJECTS = ArabicToRoman.o RomanToArabic.o Calculator.o
 
 .PHONY = clean test
 
