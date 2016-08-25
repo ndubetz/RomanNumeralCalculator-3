@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "Converter.h"
 
@@ -42,9 +43,9 @@ const struct conversion_map ROMAN_TO_ARABIC[] =
     {    1,  "I" }
 };
 
-static void write_error(char * buffer)
+static void write_error(char * buffer, char * message)
 {
-	strcat(buffer, "Result cannot be displayed as a roman numeral.");
+	strcat(buffer, message);
 }
 
 static void convert_to_roman(char * buffer, int number)
@@ -81,17 +82,20 @@ static int convert_numeral(char numeral, int previous_number)
 	return INVALID_NUMERAL_VALUE;
 }
 
-
+static bool number_can_be_converted(int number)
+{
+	return LOWER_BOUND < number && number < UPPER_BOUND;
+} 
 
 void Converter_arabic_to_roman(char * buffer, int number)
 {
-	if(number >= UPPER_BOUND || number <= LOWER_BOUND)
+	if(number_can_be_converted(number))
 	{
-		write_error(buffer);
+		convert_to_roman(buffer, number);
 	} 
 	else
 	{
-		convert_to_roman(buffer, number);
+		write_error(buffer, "Result cannot be displayed as a roman numeral.");
 	}
 }
 
