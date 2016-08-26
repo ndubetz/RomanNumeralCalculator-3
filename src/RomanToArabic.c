@@ -3,17 +3,12 @@
 #include <stdbool.h>
 
 #include "RomanToArabic.h"
+#include "ConversionMap.h"
 
 #define NUMBER_OF_ROMAN_NUMERALS 7
 #define INVALID_NUMERAL_VALUE -9999
 
-struct conversion_map 
-{
-	const int arabic;
-	const char * roman;
-};
-
-const struct conversion_map ROMAN_TO_ARABIC[] =
+const struct ConversionMap ROMAN_TO_ARABIC[] =
 {
     { 1000,  "M" },
     {  500,  "D" },

@@ -3,17 +3,12 @@
 #include <stdbool.h>
 
 #include "ArabicToRoman.h"
+#include "ConversionMap.h"
 
 #define LOWER_BOUND 0
 #define UPPER_BOUND 4000
 
-struct conversion_map 
-{
-	const int arabic;
-	const char * roman;
-};
-
-const struct conversion_map ARABIC_TO_ROMAN[] =
+const struct ConversionMap ARABIC_TO_ROMAN[] =
 {
     { 1000,  "M" },
     {  900, "CM" },
