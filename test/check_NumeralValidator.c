@@ -18,11 +18,28 @@ START_TEST(rejects_illegal_characters)
 }
 END_TEST
 
+START_TEST(rejects_illegal_ordering)
+{
+	ck_assert_int_eq(NumeralValidator_isValid("VIL"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("MIC"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("CID"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("VIM"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("DLVX"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("CCVL"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("VCII"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("MVM"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("DVD"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("LXIC"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("LC"), false);	
+}
+END_TEST
+
 TCase * NumeralValidatorTests()
 {
 	TCase * tc;
 	tc = tcase_create("NumeralValidatorTests");
 	tcase_add_test(tc, rejects_illegal_characters);	
+	tcase_add_test(tc, rejects_illegal_ordering);	
 	return tc;
 }
 
