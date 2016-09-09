@@ -7,19 +7,6 @@
 const char * VALID_ROMAN_NUMERAL_DIGITS = "IVXLCDM";
 const int INVALID_NUMERAL_VALUE = -1;
 
-static bool is_valid_numeral_digit(const char digit)
-{
-	int i;
-	for(i = 0; i < strlen(VALID_ROMAN_NUMERAL_DIGITS); i++)
-	{
-		if(digit == VALID_ROMAN_NUMERAL_DIGITS[i])
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 static int map_roman_digit_to_int(const char digit)
 {
 	int i;
@@ -33,12 +20,12 @@ static int map_roman_digit_to_int(const char digit)
 	return INVALID_NUMERAL_VALUE;
 }
 
-static bool are_all_valid_numerals(const char * numeral)
+static bool are_all_valid_numerals(int * numerals_as_ints, int length)
 {
 	int i;
-	for(i = 0; i < strlen(numeral); i++)
+	for(i = 0; i < length; i++)
 	{
-		if(!is_valid_numeral_digit(numeral[i]))
+		if(numerals_as_ints[i] == INVALID_NUMERAL_VALUE)
 		{
 			return false;
 		}
@@ -78,11 +65,8 @@ bool NumeralValidator_isValid(const char * numeral)
 	int numerals_as_ints[strlen(numeral)];
 	map_numerals_to_ints(numerals_as_ints, numeral);
 	
-	if(!numerals_are_in_order(numerals_as_ints, strlen(numeral)))
-	{
-		return false;
-	}
-	if(!are_all_valid_numerals(numeral))
+	if(!(numerals_are_in_order(numerals_as_ints, strlen(numeral))
+	&& are_all_valid_numerals(numerals_as_ints, strlen(numeral))))
 	{
 		return false;
 	}
