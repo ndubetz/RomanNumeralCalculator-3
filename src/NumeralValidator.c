@@ -4,7 +4,7 @@
 
 #include "NumeralValidator.h"
 
-const char * VALID_ROMAN_NUMERAL_DIGITS = "IVXLCDM";
+const char * VALID_ROMAN_NUMERAL_DIGITS = "MDCLXVI";
 const int INVALID_NUMERAL_VALUE = -1;
 
 static int map_roman_digit_to_int(const char digit)
@@ -42,19 +42,25 @@ static void map_numerals_to_ints(int * numerals_as_ints, const char * numeral)
 	}
 }
 
+static bool is_legal_subtraction(const int numeral_as_int, const int order)
+{
+	return (numeral_as_int == (order - 2) || numeral_as_int == (order - 1))
+			&& order % 2 == 0; 
+}
+
 static bool numerals_are_in_order(const int * numerals_as_ints, const int length)
 {
 	int i;
-	int order = 8;
+	int previous = INVALID_NUMERAL_VALUE;
 	for(i = 0; i < length; i++)
 	{
-		if(numerals_as_ints[i] > order)
+		if(numerals_as_ints[i] >= previous || is_legal_subtraction(numerals_as_ints[i], previous))
 		{
-			return false;
+			previous = numerals_as_ints[i];
 		}
 		else
 		{
-			order = numerals_as_ints[i];
+			return false;
 		}
 	}
 	return true;

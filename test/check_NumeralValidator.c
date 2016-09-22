@@ -34,12 +34,20 @@ START_TEST(rejects_illegal_ordering)
 }
 END_TEST
 
+START_TEST(allows_legal_subtractions)
+{
+	ck_assert_int_eq(NumeralValidator_isValid("MCMXCIX"), true);	
+	ck_assert_int_eq(NumeralValidator_isValid("MCDXLIV"), true);	
+}
+END_TEST
+
 TCase * NumeralValidatorTests()
 {
 	TCase * tc;
 	tc = tcase_create("NumeralValidatorTests");
 	tcase_add_test(tc, rejects_illegal_characters);	
 	tcase_add_test(tc, rejects_illegal_ordering);	
+	tcase_add_test(tc, allows_legal_subtractions);	
 	return tc;
 }
 
