@@ -53,6 +53,14 @@ START_TEST(rejects_numerals_where_ones_digits_appears_more_than_thrice_in_a_row)
 }
 END_TEST
 
+START_TEST(rejects_numerals_where_fives_digits_appears_more_than_once)
+{
+	ck_assert_int_eq(NumeralValidator_isValid("XXXVV"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("CCCLL"), false);	
+	ck_assert_int_eq(NumeralValidator_isValid("MMMDD"), false);		
+}
+END_TEST
+
 TCase * NumeralValidatorTests()
 {
 	TCase * tc;
@@ -61,6 +69,7 @@ TCase * NumeralValidatorTests()
 	tcase_add_test(tc, rejects_illegal_ordering);	
 	tcase_add_test(tc, allows_legal_subtractions);	
 	tcase_add_test(tc, rejects_numerals_where_ones_digits_appears_more_than_thrice_in_a_row);	
+	tcase_add_test(tc, rejects_numerals_where_fives_digits_appears_more_than_once);	
 	return tc;
 }
 

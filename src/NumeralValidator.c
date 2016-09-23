@@ -42,10 +42,16 @@ static void map_numerals_to_ints(int * numerals_as_ints, const char * numeral)
 	}
 }
 
-static bool is_legal_subtraction(const int numeral_as_int, const int order)
+static bool is_legal_subtraction(const int numeral_as_int, const int previous)
 {
-	return (numeral_as_int == (order - 2) || numeral_as_int == (order - 1))
-			&& order % 2 == 0; 
+	return (numeral_as_int == (previous - 2) || numeral_as_int == (previous - 1))
+			&& previous % 2 == 0; 
+}
+
+static bool numeral_occurs_too_many_times(const int numeral, const int frequency)
+{
+	return (numeral % 2 == 0 && frequency > 3)
+		|| (numeral % 2 == 1 && frequency > 1);
 }
 
 static bool numerals_are_in_order(const int * numerals_as_ints, const int length)
@@ -55,18 +61,18 @@ static bool numerals_are_in_order(const int * numerals_as_ints, const int length
 	int frequency = 0;
 	for(i = 0; i < length; i++)
 	{
-		if(numerals_as_ints[i] >= previous || is_legal_subtraction(numerals_as_ints[i], previous))
+		if(numerals_as_ints[i] >= previous 
+		 || is_legal_subtraction(numerals_as_ints[i], previous))
 		{
 			if(numerals_as_ints[i] == previous)
 			{
 				frequency++;
-			
 			}
 			else
 			{
 				frequency = 1;
 			}
-			if (frequency > 3)
+			if(numeral_occurs_too_many_times(numerals_as_ints[i], frequency))
 			{
 				return false;
 			}
