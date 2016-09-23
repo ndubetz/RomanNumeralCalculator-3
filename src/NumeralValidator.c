@@ -52,10 +52,24 @@ static bool numerals_are_in_order(const int * numerals_as_ints, const int length
 {
 	int i;
 	int previous = INVALID_NUMERAL_VALUE;
+	int frequency = 0;
 	for(i = 0; i < length; i++)
 	{
 		if(numerals_as_ints[i] >= previous || is_legal_subtraction(numerals_as_ints[i], previous))
 		{
+			if(numerals_as_ints[i] == previous)
+			{
+				frequency++;
+			
+			}
+			else
+			{
+				frequency = 1;
+			}
+			if (frequency > 3)
+			{
+				return false;
+			}
 			previous = numerals_as_ints[i];
 		}
 		else
