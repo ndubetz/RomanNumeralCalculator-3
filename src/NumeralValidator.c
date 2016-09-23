@@ -6,6 +6,8 @@
 
 const char * VALID_ROMAN_NUMERAL_DIGITS = "MDCLXVI";
 const int INVALID_NUMERAL_VALUE = -1;
+const int MAX_FREQUENCY_FOR_ONES_DIGITS = 3;
+const int MAX_FREQUENCY_FOR_FIVES_DIGITS = 1;
 
 static int map_roman_digit_to_int(const char digit)
 {
@@ -19,19 +21,6 @@ static int map_roman_digit_to_int(const char digit)
 	}
 	return INVALID_NUMERAL_VALUE;
 }
-
-static bool are_all_valid_numerals(int * numerals_as_ints, int length)
-{
-	int i;
-	for(i = 0; i < length; i++)
-	{
-		if(numerals_as_ints[i] == INVALID_NUMERAL_VALUE)
-		{
-			return false;
-		}
-	}
-	return true;
-} 
 
 static void map_numerals_to_ints(int * numerals_as_ints, const char * numeral)
 {
@@ -50,19 +39,26 @@ static bool is_legal_subtraction(const int numeral_as_int, const int previous)
 
 static bool numeral_occurs_too_many_times(const int numeral, const int frequency)
 {
-	return (numeral % 2 == 0 && frequency > 3)
-		|| (numeral % 2 == 1 && frequency > 1);
+	if(numeral % 2 == 0)
+	{
+		return frequency > MAX_FREQUENCY_FOR_ONES_DIGITS;
+	}
+	return frequency > MAX_FREQUENCY_FOR_FIVES_DIGITS;
 }
 
-static bool numerals_are_in_order(const int * numerals_as_ints, const int length)
+static bool is_a_valid_numeral(const int * numerals_as_ints, const int length)
 {
 	int i;
 	int previous = INVALID_NUMERAL_VALUE;
 	int frequency = 0;
 	for(i = 0; i < length; i++)
 	{
+		if(numerals_as_ints[i] == INVALID_NUMERAL_VALUE)
+		{
+			return false;
+		}
 		if(numerals_as_ints[i] >= previous 
-		 || is_legal_subtraction(numerals_as_ints[i], previous))
+		  || is_legal_subtraction(numerals_as_ints[i], previous))
 		{
 			if(numerals_as_ints[i] == previous)
 			{
@@ -91,11 +87,10 @@ bool NumeralValidator_isValid(const char * numeral)
 	int numerals_as_ints[strlen(numeral)];
 	map_numerals_to_ints(numerals_as_ints, numeral);
 	
-	if(!(numerals_are_in_order(numerals_as_ints, strlen(numeral))
-	&& are_all_valid_numerals(numerals_as_ints, strlen(numeral))))
+	if(is_a_valid_numeral(numerals_as_ints, strlen(numeral)))
 	{
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
